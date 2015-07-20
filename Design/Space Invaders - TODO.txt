@@ -1,0 +1,8 @@
+Gameplay:
+- Player movement
+- Enemy movement
+- Base destruction
+- Projectile
+- Score system
+- Particles
+- Sound
