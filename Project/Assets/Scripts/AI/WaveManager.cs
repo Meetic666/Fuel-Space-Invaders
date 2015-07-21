@@ -100,7 +100,7 @@ public class WaveManager : MonoBehaviour
 		return m_MaxEnemyNumber - RemainingEnemies();
 	}
 
-	int RemainingEnemies()
+	public int RemainingEnemies()
 	{
 		int result = 0;
 
@@ -120,6 +120,11 @@ public class WaveManager : MonoBehaviour
 		}
 
 		return result;
+	}
+
+	public bool IsGameOver()
+	{
+		return m_GameOver;
 	}
 
 	void SwitchAnimation()

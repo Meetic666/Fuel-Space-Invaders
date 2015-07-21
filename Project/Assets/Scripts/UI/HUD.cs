@@ -6,6 +6,9 @@ public class HUD : MonoBehaviour
 	public int m_SingleEnemyScore;
 	public float m_ScoreChangePerSecond;
 
+	public GameObject m_WinMessage;
+	public GameObject m_LoseMessage;
+
 	DigitManager[] m_ScoreDisplay;
 
 	WaveManager m_WaveManager;
@@ -38,6 +41,30 @@ public class HUD : MonoBehaviour
 		if(previousScore != m_CurrentDisplayedScore)
 		{
 			UpdateDisplay();
+		}
+
+		if(m_WaveManager.IsGameOver())
+		{
+			if(m_WaveManager.RemainingEnemies() == 0)
+			{
+				EndGame (true);
+			}
+			else
+			{
+				EndGame (false);
+			}
+		}
+	}
+
+	public void EndGame(bool playerWon)
+	{
+		if(playerWon)
+		{
+			m_WinMessage.SetActive(true);
+		}
+		else
+		{
+			m_LoseMessage.SetActive (true);
 		}
 	}
 
