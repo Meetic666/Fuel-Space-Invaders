@@ -9,6 +9,8 @@ public class HUD : MonoBehaviour
 	public GameObject m_WinMessage;
 	public GameObject m_LoseMessage;
 
+	PlayerMovement m_Player;
+
 	DigitManager[] m_ScoreDisplay;
 
 	WaveManager m_WaveManager;
@@ -23,6 +25,8 @@ public class HUD : MonoBehaviour
 		m_ScoreDisplay = GetComponentsInChildren<DigitManager>();
 
 		m_WaveManager = FindObjectOfType<WaveManager>();
+
+		m_Player = FindObjectOfType<PlayerMovement>();
 
 		UpdateDisplay();
 	}
@@ -43,6 +47,11 @@ public class HUD : MonoBehaviour
 			UpdateDisplay();
 		}
 
+		if(!m_Player.gameObject.activeSelf)
+		{
+			m_WaveManager.Stop();
+		}
+
 		if(m_WaveManager.IsGameOver())
 		{
 			if(m_WaveManager.RemainingEnemies() == 0)
@@ -52,6 +61,11 @@ public class HUD : MonoBehaviour
 			else
 			{
 				EndGame (false);
+			}
+
+			if(Input.GetMouseButtonDown(1))
+			{
+				Application.LoadLevel(Application.loadedLevel);
 			}
 		}
 	}
