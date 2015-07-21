@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerInput : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
+public class PlayerInput : BaseInput 
+{	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{
+		Fire = Input.GetMouseButton(0);
 	}
 }
