@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
 
 		m_ObjectPool = FindObjectOfType<ObjectPool>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
