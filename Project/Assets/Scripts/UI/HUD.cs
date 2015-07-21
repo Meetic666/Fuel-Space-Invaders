@@ -8,6 +8,9 @@ public class HUD : MonoBehaviour
 
 	public GameObject m_WinMessage;
 	public GameObject m_LoseMessage;
+	public GameObject m_ScoreMessage;
+	public GameObject m_TitleMessage;
+	public GameObject m_StartMessage;
 
 	PlayerMovement m_Player;
 
@@ -19,6 +22,8 @@ public class HUD : MonoBehaviour
 
 	float m_CurrentDisplayedScore;
 
+	bool m_GameLaunched;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -29,43 +34,55 @@ public class HUD : MonoBehaviour
 		m_Player = FindObjectOfType<PlayerMovement>();
 
 		UpdateDisplay();
+
+		SetSplashScreen();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		m_Score = m_WaveManager.DeadEnemies() * m_SingleEnemyScore;
-
-		float previousScore = m_CurrentDisplayedScore;
-
-		m_CurrentDisplayedScore += m_ScoreChangePerSecond * Time.deltaTime;
-
-		m_CurrentDisplayedScore = Mathf.Clamp (m_CurrentDisplayedScore, 0.0f, m_Score);
-
-		if(previousScore != m_CurrentDisplayedScore)
+		if(m_GameLaunched)
 		{
-			UpdateDisplay();
-		}
-
-		if(!m_Player.gameObject.activeSelf)
-		{
-			m_WaveManager.Stop();
-		}
-
-		if(m_WaveManager.IsGameOver())
-		{
-			if(m_WaveManager.RemainingEnemies() == 0)
+			m_Score = m_WaveManager.DeadEnemies() * m_SingleEnemyScore;
+			
+			float previousScore = m_CurrentDisplayedScore;
+			
+			m_CurrentDisplayedScore += m_ScoreChangePerSecond * Time.deltaTime;
+			
+			m_CurrentDisplayedScore = Mathf.Clamp (m_CurrentDisplayedScore, 0.0f, m_Score);
+			
+			if(previousScore != m_CurrentDisplayedScore)
 			{
-				EndGame (true);
+				UpdateDisplay();
 			}
-			else
+			
+			if(!m_Player.gameObject.activeSelf)
 			{
-				EndGame (false);
+				m_WaveManager.Stop();
 			}
-
+			
+			if(m_WaveManager.IsGameOver())
+			{
+				if(m_WaveManager.RemainingEnemies() == 0)
+				{
+					EndGame (true);
+				}
+				else
+				{
+					EndGame (false);
+				}
+				
+				if(Input.GetMouseButtonDown(1))
+				{
+					Reset ();
+				}
+			}
+		}
+		else
+		{
 			if(Input.GetMouseButtonDown(1))
 			{
-				Application.LoadLevel(Application.loadedLevel);
+				LaunchGame();
 			}
 		}
 	}
@@ -80,6 +97,35 @@ public class HUD : MonoBehaviour
 		{
 			m_LoseMessage.SetActive (true);
 		}
+
+		m_StartMessage.SetActive(true);
+	}
+
+	void Reset()
+	{
+		m_WaveManager.Reset();
+
+		m_StartMessage.SetActive (false);
+		m_WinMessage.SetActive(false);
+		m_LoseMessage.SetActive (false);
+
+		m_Player.gameObject.SetActive(true);
+	}
+
+	void LaunchGame()
+	{
+		m_WaveManager.gameObject.SetActive (true);
+		m_TitleMessage.SetActive(false);
+		m_StartMessage.SetActive(false);
+		m_ScoreMessage.SetActive (true);
+
+		m_GameLaunched = true;
+	}
+
+	void SetSplashScreen()
+	{
+		m_WaveManager.gameObject.SetActive (false);
+		m_ScoreMessage.SetActive(false);
 	}
 
 	void UpdateDisplay()

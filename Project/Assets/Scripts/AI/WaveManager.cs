@@ -23,6 +23,8 @@ public class WaveManager : MonoBehaviour
 
 	int m_FinalNumberOfEnemies;
 
+	Vector3 m_InitialPosition;
+
 	void Start()
 	{
 		m_Enemies = GetComponentsInChildren<AnimationManager>();
@@ -32,6 +34,8 @@ public class WaveManager : MonoBehaviour
 		m_AnimationSwichTimer = m_AnimationSwitchTime;
 
 		m_GameOverDisappearanceTimer = m_GameOverDisappearanceTime;
+
+		m_InitialPosition = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -125,6 +129,18 @@ public class WaveManager : MonoBehaviour
 	public bool IsGameOver()
 	{
 		return m_GameOver;
+	}
+
+	public void Reset()
+	{
+		for(int i = 0; i < m_Enemies.Length; i++)
+		{
+			m_Enemies[i].gameObject.SetActive(true);
+		}
+
+		transform.position = m_InitialPosition;
+
+		m_GameOver = false;
 	}
 
 	void SwitchAnimation()
