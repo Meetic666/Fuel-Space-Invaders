@@ -1,15 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HUD : MonoBehaviour {
+public class HUD : MonoBehaviour 
+{
+	public int m_SingleEnemyScore;
+	public float m_ScoreChangePerSecond;
+
+	DigitManager[] m_ScoreDisplay;
+
+	WaveManager m_WaveManager;
+
+	int m_Score;
+
+	float m_CurrentDisplayedScore;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+		m_ScoreDisplay = GetComponentsInChildren<DigitManager>();
+
+		m_WaveManager = FindObjectOfType<WaveManager>();
+
+		UpdateDisplay();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{
+		m_Score = m_WaveManager.DeadEnemies() * m_SingleEnemyScore;
+
+		float previousScore = m_CurrentDisplayedScore;
+
+		m_CurrentDisplayedScore += m_ScoreChangePerSecond * Time.deltaTime;
+
+		m_CurrentDisplayedScore = Mathf.Clamp (m_CurrentDisplayedScore, 0.0f, m_Score);
+
+		if(previousScore != m_CurrentDisplayedScore)
+		{
+			UpdateDisplay();
+		}
+	}
+
+	void UpdateDisplay()
+	{
+		int scoreToDisplay = (int) m_CurrentDisplayedScore;
+
+		for(int i = m_ScoreDisplay.Length - 1; i >= 0; i--)
+		{
+			int powerOfTen = (int) Mathf.Pow(10, i);
+
+			int digit = scoreToDisplay / powerOfTen;
+
+			m_ScoreDisplay[i].SetDigit(digit);
+
+			scoreToDisplay -= digit * powerOfTen;
+		}
 	}
 }

@@ -21,6 +21,8 @@ public class WaveManager : MonoBehaviour
 
 	bool m_GameOver;
 
+	int m_FinalNumberOfEnemies;
+
 	void Start()
 	{
 		m_Enemies = GetComponentsInChildren<AnimationManager>();
@@ -76,6 +78,8 @@ public class WaveManager : MonoBehaviour
 
 	public void Stop()
 	{
+		m_FinalNumberOfEnemies = RemainingEnemies();
+
 		m_GameOver = true;
 	}
 
@@ -100,12 +104,19 @@ public class WaveManager : MonoBehaviour
 	{
 		int result = 0;
 
-		for(int i = 0; i < m_Enemies.Length; i++)
+		if(!m_GameOver)
 		{
-			if(m_Enemies[i].gameObject.activeSelf)
+			for(int i = 0; i < m_Enemies.Length; i++)
 			{
-				result++;
+				if(m_Enemies[i].gameObject.activeSelf)
+                {
+                    result++;
+                }
 			}
+		}
+		else
+		{
+			result = m_FinalNumberOfEnemies;
 		}
 
 		return result;
