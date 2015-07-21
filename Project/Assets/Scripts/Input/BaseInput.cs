@@ -9,7 +9,7 @@ public class BaseInput : MonoBehaviour
 		protected set;
 	}
 
-	public int MoveDirection
+	public float TargetPosition
 	{
 		get;
 		protected set;
