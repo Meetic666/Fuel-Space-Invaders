@@ -12,10 +12,7 @@ public class HUD : MonoBehaviour
 	public GameObject m_TitleMessage;
 	public GameObject m_StartMessage;
 
-	PlayerMovement m_Player;
-
 	DigitManager[] m_ScoreDisplay;
-	BaseManager[] m_PlayerBases;
 
 	WaveManager m_WaveManager;
 
@@ -28,16 +25,6 @@ public class HUD : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		m_ScoreDisplay = GetComponentsInChildren<DigitManager>();
-
-		m_WaveManager = FindObjectOfType<WaveManager>();
-
-		m_Player = FindObjectOfType<PlayerMovement>();
-
-		m_PlayerBases = FindObjectsOfType<BaseManager>();
-
-		UpdateDisplay();
-
 		SetSplashScreen();
 	}
 	
@@ -58,35 +45,6 @@ public class HUD : MonoBehaviour
 			{
 				UpdateDisplay();
 			}
-			
-			if(!m_Player.gameObject.activeSelf)
-			{
-				m_WaveManager.Stop();
-			}
-			
-			if(m_WaveManager.IsGameOver())
-			{
-				if(m_WaveManager.RemainingEnemies() == 0)
-				{
-					EndGame (true);
-				}
-				else
-				{
-					EndGame (false);
-				}
-				
-				if(Input.GetMouseButtonDown(1))
-				{
-					LaunchGame ();
-				}
-			}
-		}
-		else
-		{
-			if(Input.GetMouseButtonDown(1))
-			{
-				LaunchGame();
-			}
 		}
 	}
 
@@ -104,31 +62,29 @@ public class HUD : MonoBehaviour
 		m_StartMessage.SetActive(true);
 	}
 
-	void LaunchGame()
+	public void LaunchGame()
 	{
-		m_WaveManager.gameObject.SetActive (true);
 		m_TitleMessage.SetActive(false);
 		m_StartMessage.SetActive(false);
 		m_ScoreMessage.SetActive (true);
 		m_WinMessage.SetActive(false);
 		m_LoseMessage.SetActive (false);
 
-		m_WaveManager.Reset();
-
 		m_GameLaunched = true;
 
-		m_Player.gameObject.SetActive(true);
-
-		for(int i = 0; i < m_PlayerBases.Length; i++)
-		{
-			m_PlayerBases[i].Reset();
-		}
+		m_ScoreDisplay = GetComponentsInChildren<DigitManager>();
+		UpdateDisplay ();
+		
+		m_WaveManager = FindObjectOfType<WaveManager>();
 	}
 
 	void SetSplashScreen()
 	{
-		m_WaveManager.gameObject.SetActive (false);
-		m_ScoreMessage.SetActive(false);
+		m_TitleMessage.SetActive(true);
+		m_StartMessage.SetActive(true);
+		m_ScoreMessage.SetActive (false);
+		m_WinMessage.SetActive(false);
+		m_LoseMessage.SetActive (false);
 	}
 
 	void UpdateDisplay()

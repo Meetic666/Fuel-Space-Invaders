@@ -25,16 +25,16 @@ public class WaveManager : MonoBehaviour
 
 	Vector3 m_InitialPosition;
 
-	void Start()
+	void Awake()
 	{
 		m_Enemies = GetComponentsInChildren<AnimationManager>();
-
+		
 		m_MaxEnemyNumber = m_Enemies.Length;
-
+		
 		m_AnimationSwichTimer = m_AnimationSwitchTime;
-
+		
 		m_GameOverDisappearanceTimer = m_GameOverDisappearanceTime;
-
+		
 		m_InitialPosition = transform.position;
 	}
 	
