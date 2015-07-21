@@ -15,6 +15,7 @@ public class HUD : MonoBehaviour
 	PlayerMovement m_Player;
 
 	DigitManager[] m_ScoreDisplay;
+	BaseManager[] m_PlayerBases;
 
 	WaveManager m_WaveManager;
 
@@ -32,6 +33,8 @@ public class HUD : MonoBehaviour
 		m_WaveManager = FindObjectOfType<WaveManager>();
 
 		m_Player = FindObjectOfType<PlayerMovement>();
+
+		m_PlayerBases = FindObjectsOfType<BaseManager>();
 
 		UpdateDisplay();
 
@@ -74,7 +77,7 @@ public class HUD : MonoBehaviour
 				
 				if(Input.GetMouseButtonDown(1))
 				{
-					Reset ();
+					LaunchGame ();
 				}
 			}
 		}
@@ -101,25 +104,25 @@ public class HUD : MonoBehaviour
 		m_StartMessage.SetActive(true);
 	}
 
-	void Reset()
-	{
-		m_WaveManager.Reset();
-
-		m_StartMessage.SetActive (false);
-		m_WinMessage.SetActive(false);
-		m_LoseMessage.SetActive (false);
-
-		m_Player.gameObject.SetActive(true);
-	}
-
 	void LaunchGame()
 	{
 		m_WaveManager.gameObject.SetActive (true);
 		m_TitleMessage.SetActive(false);
 		m_StartMessage.SetActive(false);
 		m_ScoreMessage.SetActive (true);
+		m_WinMessage.SetActive(false);
+		m_LoseMessage.SetActive (false);
+
+		m_WaveManager.Reset();
 
 		m_GameLaunched = true;
+
+		m_Player.gameObject.SetActive(true);
+
+		for(int i = 0; i < m_PlayerBases.Length; i++)
+		{
+			m_PlayerBases[i].Reset();
+		}
 	}
 
 	void SetSplashScreen()
