@@ -1,16 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Input\AIInput.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AI\WaveManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Weapon\Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Weapon\Projectile.cs" Line="13" Column="3" />
       <File FileName="Assets\Scripts\Health\Health.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Weapon\Weapon.cs" Line="23" Column="2" />
+      <File FileName="Assets\Scripts\Weapon\Weapon.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Input\BaseInput.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Pooling\ObjectPool.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Input\PlayerInput.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Pooling\LifeTime.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Input\AIInput.cs" Line="17" Column="2" />
+      <File FileName="Assets\Scripts\Input\AIInput.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AI\WaveManager.cs" Line="61" Column="6" />
+      <File FileName="Assets\Scripts\AI\BoundCheck.cs" Line="32" Column="22" />
+      <File FileName="Assets\Scripts\AI\AnimationManager.cs" Line="15" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -4,6 +4,8 @@ using System.Collections;
 public class Projectile : MonoBehaviour 
 {
 	public float m_Speed;
+
+	public LayerMask m_PhysicsLayersToCollideWith;
 	
 	// Update is called once per frame
 	void Update () 
@@ -16,7 +18,7 @@ public class Projectile : MonoBehaviour
 
 		RaycastHit hitInfo;
 
-		if(Physics.Raycast(transform.position, displacement, out hitInfo, displacement.magnitude))
+		if(Physics.SphereCast(previousPosition + transform.up * transform.localScale.y * 0.5f, transform.localScale.x, displacement, out hitInfo, displacement.magnitude, m_PhysicsLayersToCollideWith.value))
 		{
 			Health otherHealth = hitInfo.collider.GetComponent<Health>();
 
