@@ -7,9 +7,13 @@ public class Health : MonoBehaviour
 
 	ObjectPool m_ObjectPool;
 
+	ScreenShakeManager m_ScreenShakeManager;
+
 	void Start()
 	{
 		m_ObjectPool = FindObjectOfType<ObjectPool>();
+
+		m_ScreenShakeManager = FindObjectOfType<ScreenShakeManager>();
 	}
 
 	public void Damage()
@@ -19,5 +23,7 @@ public class Health : MonoBehaviour
 		GameObject newObject = m_ObjectPool.Instantiate (m_DestructionParticlesPrefab, transform.position, Quaternion.identity);
 
 		newObject.GetComponent<ParticleSystem>().Clear ();
+
+		m_ScreenShakeManager.StartShake();
 	}
 }
