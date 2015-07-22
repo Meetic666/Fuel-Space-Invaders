@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// PlayerInput handles the input set by the player, using mouse input
 public class PlayerInput : BaseInput 
 {	
+	#region Unity Hooks
 	// Update is called once per frame
 	void Update () 
 	{
@@ -10,7 +12,10 @@ public class PlayerInput : BaseInput
 
 		TargetPosition = CalculateMousePosition();
 	}
+	#endregion
 
+	#region Private Methods
+	// Calculates the world position of the cursor in the plane of the player
 	float CalculateMousePosition()
 	{
 		Vector3 mousePosition = Input.mousePosition;
@@ -20,4 +25,5 @@ public class PlayerInput : BaseInput
 
 		return mouseWorldPosition.x;
 	}
+	#endregion
 }

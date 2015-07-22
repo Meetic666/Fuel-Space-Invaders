@@ -1,16 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// ScreenShakeManager handles all the shake that the screen can take !!!
+// Let's make Vlambeer proud ;-)
 public class ScreenShakeManager : MonoBehaviour 
 {
+	#region Members Open For Design
 	public float m_ShakeForce;
 	public float m_ShakeTime;
 	public float m_ShakeSpeed;
+	public float m_MaxShake;
+	#endregion
 
+	#region Private Members
 	float m_ActualShake;
 	float m_ShakeTimer;
 	Vector3 m_InitialPosition;
+	#endregion
 
+	#region Unity Hooks
 	void Start()
 	{
 		m_InitialPosition = transform.position;
@@ -21,6 +29,7 @@ public class ScreenShakeManager : MonoBehaviour
 	{
 		Vector3 targetPosition = m_InitialPosition;
 
+		// Checks if screen is shaking
 		if(m_ShakeTimer > 0.0f)
 		{
 			m_ShakeTimer -= Time.deltaTime;
@@ -34,11 +43,26 @@ public class ScreenShakeManager : MonoBehaviour
 
 		transform.position = Vector3.Lerp(transform.position, targetPosition, m_ShakeSpeed * Time.deltaTime);
 	}
+	#endregion
 
-	public void StartShake()
+	#region Public Methods
+	// Start shake with multiplier applied to m_ShakeForce
+	public void StartShake(float shakeMultiplier)
 	{
 		m_ShakeTimer = m_ShakeTime;
 
-		m_ActualShake += m_ShakeForce;
+		m_ActualShake += m_ShakeForce * shakeMultiplier;
+
+		if(m_ActualShake > m_MaxShake)
+		{
+			m_ActualShake = m_MaxShake;
+		}
 	}
+
+	public void StartShake()
+	{
+		// Start shake with base shake value
+		StartShake (1.0f);
+	}
+	#endregion
 }

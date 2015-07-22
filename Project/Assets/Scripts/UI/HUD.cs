@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// HUD manages all displayed object to represent the game state (Splash/Game/End)
 public class HUD : MonoBehaviour 
 {
+	#region Members Open For Design
 	public int m_SingleEnemyScore;
 	public float m_ScoreChangePerSecond;
 
@@ -12,6 +14,10 @@ public class HUD : MonoBehaviour
 	public GameObject m_TitleMessage;
 	public GameObject m_StartMessage;
 
+	public AudioSource m_ScoreIncreaseSound;
+	#endregion
+
+	#region Private Members
 	DigitManager[] m_ScoreDisplay;
 
 	WaveManager m_WaveManager;
@@ -21,7 +27,9 @@ public class HUD : MonoBehaviour
 	float m_CurrentDisplayedScore;
 
 	bool m_GameLaunched;
+	#endregion
 
+	#region Unity Hooks
 	// Use this for initialization
 	void Start () 
 	{
@@ -40,14 +48,28 @@ public class HUD : MonoBehaviour
 			m_CurrentDisplayedScore += m_ScoreChangePerSecond * Time.deltaTime;
 			
 			m_CurrentDisplayedScore = Mathf.Clamp (m_CurrentDisplayedScore, 0.0f, m_Score);
-			
+
+			// Checks if the score displayed needs to be updated on the HUD
 			if(previousScore != m_CurrentDisplayedScore)
 			{
 				UpdateDisplay();
+
+				if(!m_ScoreIncreaseSound.isPlaying)
+				{
+					m_ScoreIncreaseSound.Play ();
+					m_ScoreIncreaseSound.loop = true;
+				}
+			}
+			else
+			{
+				m_ScoreIncreaseSound.loop = false;
 			}
 		}
 	}
+	#endregion
 
+	#region Public Methods
+	// EndGame is used to set the HUD to display the proper Win/Lose message
 	public void EndGame(bool playerWon)
 	{
 		if(playerWon)
@@ -62,6 +84,7 @@ public class HUD : MonoBehaviour
 		m_StartMessage.SetActive(true);
 	}
 
+	// LaunchGame is used to display the proper HUD for in game
 	public void LaunchGame()
 	{
 		m_TitleMessage.SetActive(false);
@@ -72,12 +95,19 @@ public class HUD : MonoBehaviour
 
 		m_GameLaunched = true;
 
-		m_ScoreDisplay = GetComponentsInChildren<DigitManager>();
+		if(m_ScoreDisplay == null)
+		{
+			m_ScoreDisplay = GetComponentsInChildren<DigitManager>();
+		}
+
 		UpdateDisplay ();
 		
 		m_WaveManager = FindObjectOfType<WaveManager>();
 	}
+	#endregion
 
+	#region Private Methods
+	// SetSplashScreen sets the HUD to display the proper splash screen
 	void SetSplashScreen()
 	{
 		m_TitleMessage.SetActive(true);
@@ -87,6 +117,7 @@ public class HUD : MonoBehaviour
 		m_LoseMessage.SetActive (false);
 	}
 
+	// UpdateDisplay parses the score to display in order for the digits to be set properly
 	void UpdateDisplay()
 	{
 		int scoreToDisplay = (int) m_CurrentDisplayedScore;
@@ -102,4 +133,5 @@ public class HUD : MonoBehaviour
 			scoreToDisplay -= digit * powerOfTen;
 		}
 	}
+	#endregion
 }

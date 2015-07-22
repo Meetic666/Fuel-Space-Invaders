@@ -1,20 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Animation manager manages voxel animation for objects
 public class AnimationManager : MonoBehaviour 
 {
+	#region Members Open For Design
+	// Animation frames are sub objects of this
+	// Used for fancy voxel animation
 	public GameObject[] m_AnimationFrames;
+	#endregion
 
-	int m_CurrentAnimation;
+	#region Private Members
+	int m_CurrentAnimationIndex;
+	#endregion
 
+	#region Public Methods
 	public void SwitchAnimation()
 	{
-		m_AnimationFrames[m_CurrentAnimation].SetActive(false);
+		// Deactivates previous frame
+		m_AnimationFrames[m_CurrentAnimationIndex].SetActive(false);
 
-		m_CurrentAnimation++;
+		// Updates current index, and loops it around if necessary
+		m_CurrentAnimationIndex++;
 
-		m_CurrentAnimation %= m_AnimationFrames.Length;
+		m_CurrentAnimationIndex %= m_AnimationFrames.Length;
 
-		m_AnimationFrames[m_CurrentAnimation].SetActive(true);
+		// Activates current animation frame
+		m_AnimationFrames[m_CurrentAnimationIndex].SetActive(true);
 	}
+	#endregion
 }
