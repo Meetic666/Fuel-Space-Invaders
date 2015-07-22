@@ -14,6 +14,9 @@ public class HUD : MonoBehaviour
 	public GameObject m_ScoreMessage;
 	public GameObject m_TitleMessage;
 	public GameObject m_StartMessage;
+	public GameObject m_WrongMessage;
+	public GameObject m_CorrectMessage;
+	public GameObject m_ObsoleteInGameMessage;
 
 	public AudioSource m_ScoreIncreaseSound;
 
@@ -75,6 +78,12 @@ public class HUD : MonoBehaviour
 	#endregion
 
 	#region Public Methods
+	public void CorrectMessage()
+	{
+		m_WrongMessage.SetActive(false);
+		m_CorrectMessage.SetActive(true);
+	}
+
 	// EndGame is used to set the HUD to display the proper Win/Lose message
 	public void EndGame(bool playerWon)
 	{
@@ -99,6 +108,9 @@ public class HUD : MonoBehaviour
 		m_ScoreCanvas.SetActive (true);
 		m_WinMessage.SetActive(false);
 		m_LoseMessage.SetActive (false);
+		m_ObsoleteInGameMessage.SetActive (false);
+
+		CorrectMessage();
 
 		m_GameLaunched = true;
 
@@ -123,6 +135,7 @@ public class HUD : MonoBehaviour
 		m_ScoreCanvas.SetActive (false);
 		m_WinMessage.SetActive(false);
 		m_LoseMessage.SetActive (false);
+		m_CorrectMessage.SetActive (false);
 	}
 
 	// UpdateDisplay parses the score to display in order for the digits to be set properly

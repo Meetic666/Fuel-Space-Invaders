@@ -10,13 +10,26 @@ public class DelayedText : MonoBehaviour
 
 	#region Private Members
 	float m_NumberOfCharactersDisplayed;
+
+	bool m_FirstInitialization;
 	#endregion
 
 	#region Unity Hooks
-	// Use this for initialization
-	void Start () 
+	void Start()
 	{
+		m_FirstInitialization = true;
+
 		UpdateDisplay ();
+	}
+
+	void OnEnable()
+	{
+		if(m_FirstInitialization)
+		{
+			m_NumberOfCharactersDisplayed = 0.0f;
+			
+			UpdateDisplay ();
+		}
 	}
 	
 	// Update is called once per frame

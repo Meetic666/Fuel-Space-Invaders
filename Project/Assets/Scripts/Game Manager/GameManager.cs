@@ -6,8 +6,8 @@ using System.Collections;
 public class GameManager : MonoBehaviour 
 {		
 	#region Private Members
-	PlayerMovement m_Player;
-	BaseManager[] m_PlayerBases;	
+	PlayerInput m_Player;
+	Health[] m_DestructibleElements;	
 	WaveManager m_WaveManager;
 	HUD m_HUD;
 
@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Unity Hooks
+	void Awake()
+	{
+		m_DestructibleElements = FindObjectsOfType<Health>();
+	}
+
 	// Use this for initialization
 	void Start () 
 	{		
@@ -23,9 +28,7 @@ public class GameManager : MonoBehaviour
 		m_WaveManager = FindObjectOfType<WaveManager>();		
 		m_WaveManager.gameObject.SetActive (false);
 		
-		m_Player = FindObjectOfType<PlayerMovement>();
-		
-		m_PlayerBases = FindObjectsOfType<BaseManager>();
+		m_Player = FindObjectOfType<PlayerInput>();
 	}
 	
 	// Update is called once per frame
@@ -54,9 +57,9 @@ public class GameManager : MonoBehaviour
 		
 		m_Player.gameObject.SetActive(true);
 		
-		for(int i = 0; i < m_PlayerBases.Length; i++)
+		for(int i = 0; i < m_DestructibleElements.Length; i++)
 		{
-			m_PlayerBases[i].Reset();
+			m_DestructibleElements[i].Reset();
 		}
 
 		m_HUD.LaunchGame();
@@ -65,6 +68,8 @@ public class GameManager : MonoBehaviour
 	// Update Splash looks for the input to go in-game
 	void UpdateSplash()
 	{
+		CheckFireInput();
+
 		CheckStartInput();
     }
 
@@ -94,6 +99,14 @@ public class GameManager : MonoBehaviour
 			CheckStartInput();
         }
     }
+
+	void CheckFireInput()
+	{
+		if(m_Player.Fire)
+		{
+			m_HUD.CorrectMessage();
+		}
+	}
 
 	void CheckStartInput()
 	{

@@ -37,5 +37,10 @@ public class Health : MonoBehaviour
 
 		m_ScreenShakeManager.StartShake();
 	}
+
+	public void Reset()
+	{
+		gameObject.SetActive(true);
+	}
 	#endregion
 }
