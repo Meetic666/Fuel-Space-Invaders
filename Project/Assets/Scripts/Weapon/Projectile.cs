@@ -4,7 +4,7 @@ using System.Collections;
 // Projectile handles the movement and collision of projectile objects
 public class Projectile : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_Speed;
 	public GameObject m_FiringSoundPrefab;
 	public GameObject m_ExplosionSoundPrefab;
@@ -24,6 +24,7 @@ public class Projectile : MonoBehaviour
 
 	void OnEnable()
 	{
+		// Gets appropriate firing sound from object pool and plays the sound
 		GameObject newSoundObject = m_ObjectPool.Instantiate(m_FiringSoundPrefab, transform.position, Quaternion.identity);
 		newSoundObject.GetComponent<AudioSource>().Play ();
 	}

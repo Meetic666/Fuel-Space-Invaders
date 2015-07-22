@@ -4,7 +4,7 @@ using System.Collections;
 // AIInput handles the input set by the AI (in turn managing firing missiles)
 public class AIInput : BaseInput
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_FiringTime;
 	#endregion
 

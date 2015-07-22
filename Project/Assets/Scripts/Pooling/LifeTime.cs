@@ -4,7 +4,7 @@ using System.Collections;
 // LifeTime handles the countdown to deactivation of objects with a life span
 public class LifeTime : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_LifeTime;
 	#endregion
 

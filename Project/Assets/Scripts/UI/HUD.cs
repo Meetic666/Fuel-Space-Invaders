@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-// HUD manages all displayed object to represent the game state (Splash/Game/End)
+// HUD manages all displayed objects to represent the game state (Splash/Game/End)
 public class HUD : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public int m_SingleEnemyScore;
 	public float m_ScoreChangePerSecond;
 
@@ -15,6 +16,9 @@ public class HUD : MonoBehaviour
 	public GameObject m_StartMessage;
 
 	public AudioSource m_ScoreIncreaseSound;
+
+	public Text m_ScoreText;
+	public GameObject m_ScoreCanvas;
 	#endregion
 
 	#region Private Members
@@ -34,6 +38,8 @@ public class HUD : MonoBehaviour
 	void Start () 
 	{
 		SetSplashScreen();
+
+		Cursor.visible = false;
 	}
 	
 	// Update is called once per frame
@@ -90,6 +96,7 @@ public class HUD : MonoBehaviour
 		m_TitleMessage.SetActive(false);
 		m_StartMessage.SetActive(false);
 		m_ScoreMessage.SetActive (true);
+		m_ScoreCanvas.SetActive (true);
 		m_WinMessage.SetActive(false);
 		m_LoseMessage.SetActive (false);
 
@@ -113,6 +120,7 @@ public class HUD : MonoBehaviour
 		m_TitleMessage.SetActive(true);
 		m_StartMessage.SetActive(true);
 		m_ScoreMessage.SetActive (false);
+		m_ScoreCanvas.SetActive (false);
 		m_WinMessage.SetActive(false);
 		m_LoseMessage.SetActive (false);
 	}
@@ -121,6 +129,9 @@ public class HUD : MonoBehaviour
 	void UpdateDisplay()
 	{
 		int scoreToDisplay = (int) m_CurrentDisplayedScore;
+		
+		string score = scoreToDisplay.ToString();
+		string tempScore = score;
 
 		for(int i = m_ScoreDisplay.Length - 1; i >= 0; i--)
 		{
@@ -131,7 +142,14 @@ public class HUD : MonoBehaviour
 			m_ScoreDisplay[i].SetDigit(digit);
 
 			scoreToDisplay -= digit * powerOfTen;
+			
+			if(tempScore.Length <= i)
+			{
+				score = "0" + score;
+			}
 		}
+
+		m_ScoreText.text = score;
 	}
 	#endregion
 }

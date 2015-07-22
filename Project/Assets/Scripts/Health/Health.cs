@@ -4,7 +4,7 @@ using System.Collections;
 // Health handles the object's behaviour when getting hit
 public class Health : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public GameObject m_DestructionParticlesPrefab;
 	#endregion
 
@@ -15,6 +15,7 @@ public class Health : MonoBehaviour
 	#endregion
 
 	#region Unity Hooks
+	// Use this for initialization
 	void Start()
 	{
 		m_ObjectPool = FindObjectOfType<ObjectPool>();

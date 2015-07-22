@@ -5,7 +5,7 @@ using System.Collections;
 // Let's make Vlambeer proud ;-)
 public class ScreenShakeManager : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_ShakeForce;
 	public float m_ShakeTime;
 	public float m_ShakeSpeed;
@@ -19,6 +19,7 @@ public class ScreenShakeManager : MonoBehaviour
 	#endregion
 
 	#region Unity Hooks
+	// Use this for initialization
 	void Start()
 	{
 		m_InitialPosition = transform.position;

@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 		CheckStartInput();
     }
 
-	// UpdateGae is run when in-game
+	// UpdateGame is run when in-game
 	void UpdateGame()
 	{
 		// If the player dies
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 	void CheckStartInput()
 	{
 		// Press right mouse button to start
-		if(Input.GetMouseButtonDown(1))
+		if(Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Return))
 		{
 			LaunchGame ();
 		}

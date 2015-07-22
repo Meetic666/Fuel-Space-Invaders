@@ -4,7 +4,7 @@ using System.Collections;
 // DelayedText handles text that appears over time using a set characer per second rate
 public class DelayedText : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_CharacterPerSecond;
 	#endregion
 

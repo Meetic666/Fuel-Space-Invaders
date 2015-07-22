@@ -5,7 +5,7 @@ using System.Collections;
 // as well as when it touches ground
 public class BoundCheck : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_MaxX;
 	public float m_InvasionCompleteY;
 	#endregion

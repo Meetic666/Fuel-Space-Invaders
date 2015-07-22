@@ -1,16 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// PlayerInput handles the input set by the player, using mouse input
+// PlayerInput handles the input set by the player, using mouse and keyboard input
 public class PlayerInput : BaseInput 
 {	
+	#region Private Members
+	bool m_IsUsingKeyboardForMovement;
+
+	Vector3 m_PreviousMousePosition;
+	#endregion
+
 	#region Unity Hooks
 	// Update is called once per frame
 	void Update () 
 	{
-		Fire = Input.GetMouseButton(0);
+		Fire = Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space);
 
-		TargetPosition = CalculateMousePosition();
+		if(!m_IsUsingKeyboardForMovement)
+		{
+			TargetPosition = CalculateMousePosition();
+		}
+
+		if(Input.GetKey(KeyCode.LeftArrow))
+		{
+			TargetPosition -= 1;
+
+			m_IsUsingKeyboardForMovement = true;
+		}
+
+		if(Input.GetKey(KeyCode.RightArrow))
+		{
+			TargetPosition += 1;
+
+			m_IsUsingKeyboardForMovement = true;
+		}
+
+		if(Input.mousePosition != m_PreviousMousePosition)
+		{
+			m_IsUsingKeyboardForMovement = false;
+		}
+
+		m_PreviousMousePosition = Input.mousePosition;
 	}
 	#endregion
 

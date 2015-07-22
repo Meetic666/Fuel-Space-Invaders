@@ -4,7 +4,7 @@ using System.Collections;
 // Animation manager manages voxel animation for objects
 public class AnimationManager : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	// Animation frames are sub objects of this
 	// Used for fancy voxel animation
 	public GameObject[] m_AnimationFrames;

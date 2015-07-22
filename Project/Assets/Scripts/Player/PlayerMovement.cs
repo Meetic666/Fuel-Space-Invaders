@@ -4,7 +4,7 @@ using System.Collections;
 // PlayerMovement handles the player movement based on the input
 public class PlayerMovement : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_Speed;
 	public float m_MaxX;
 	#endregion
@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 	#endregion
 
 	#region Unity Hooks
+	// Use this for initialization
 	void Start()
 	{
 		m_Input = GetComponent<BaseInput>();

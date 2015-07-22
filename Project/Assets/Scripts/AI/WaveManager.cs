@@ -4,7 +4,7 @@ using System.Collections;
 // WaveManager handles the behaviour of the enemy wave during the game and when the game is over
 public class WaveManager : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public float m_MinHorizontalSpeed;
 	public float m_MaxHorizontalSpeed;
 	public float m_VerticalDrop;
@@ -62,7 +62,7 @@ public class WaveManager : MonoBehaviour
 	public void Stop()
 	{
 		// Sets final number of enemies to current number of enemies
-		// Kept trac of for score
+		// Kept track of for score
 		m_FinalNumberOfEnemies = RemainingEnemies();
 
 		// Sets game to be over :-(

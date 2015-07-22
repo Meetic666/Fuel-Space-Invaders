@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 // ObjectPool handles pooling of object (better memory management)
-// It uses a dictionary to get the pooled objects using the desired refab as key
+// It uses a dictionary to get the pooled objects using the desired prefab as key
 public class ObjectPool : MonoBehaviour 
 {
 	#region Private Members
@@ -34,7 +34,7 @@ public class ObjectPool : MonoBehaviour
 		{
 			foreach(GameObject pooledObject in m_ObjectPool[prefab])
 			{
-				// Searches for an inactive obect in the pool corresponding to the prefab
+				// Searches for an inactive object in the pool corresponding to the prefab
 				if(result == null && !pooledObject.activeSelf)
 				{
 					pooledObject.SetActive(true);

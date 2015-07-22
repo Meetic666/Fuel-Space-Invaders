@@ -4,7 +4,7 @@ using System.Collections;
 // Weapon handles the creation of projectiles according to firing rate and input
 public class Weapon : MonoBehaviour 
 {
-	#region Members Open For Design
+	#region Members Open For Designer
 	public GameObject m_ProjectilePrefab;
 	public float m_FiringRate;
 	public Transform m_FiringPoint;
